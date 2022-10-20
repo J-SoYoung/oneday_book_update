@@ -6,6 +6,10 @@
 - dnspython : pymongo연동을 위함
 - pymongo : mongoDB atlas 사용
 - requests : 서버와 API통신을 위함
+<br>
+![image](https://user-images.githubusercontent.com/85012454/196973993-2202cb36-6aea-495b-825e-b35d3d69fc0e.png)
+<br>
+
 
 # 회원가입- ID중복확인 ( sign_up / check_dup )<br>
 #### 클라<br>
@@ -18,6 +22,7 @@
 - ID중복 is-danger / ID사용가능 is-success , is-loading 삭제<br>
 - is-danger, is-loading, is-success는 bulma css class명, css스타일링 및 상태관련 표시<br>
 <br>
+
 # 회원가입 - ID저장 ( sign_up / save )
 #### 클라
 - help-id의 클래스명을 확인한다 ( is-danger, is-success, is-loading )
