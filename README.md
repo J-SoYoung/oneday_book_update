@@ -7,9 +7,9 @@
 - pymongo : mongoDB atlas 사용
 - requests : 서버와 API통신을 위함
 <br>
-![image](https://user-images.githubusercontent.com/85012454/196973993-2202cb36-6aea-495b-825e-b35d3d69fc0e.png)
-<br>
 
+![image](https://user-images.githubusercontent.com/85012454/196974578-b3632aa7-ebd6-411e-93c0-4f40b079ba72.png)
+<br>
 
 # 회원가입- ID중복확인 ( sign_up / check_dup )<br>
 #### 클라<br>
