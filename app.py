@@ -1,21 +1,29 @@
+# jwt로그인, 회원가입, 서버 외, 파일저장, date 및 time 라이브러리
 import jwt
 import datetime
 import hashlib
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 from werkzeug.utils import secure_filename
+
 from datetime import datetime, timedelta
-
-
 app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config['UPLOAD_FOLDER'] = "./static/profile_pics"
 
 SECRET_KEY = 'SPARTA'
 
+# 크롤링 - beautifulsoup 임포트
+import requests
+from bs4 import BeautifulSoup
+
+# DB사용
 from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.aphlzi8.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.miniPJ
 
+
+
+##### html화면 렌더 API #####
 @app.route('/')
 # 메인 페이지 렌더
 def home():
@@ -32,12 +40,83 @@ def home():
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
-
 @app.route('/login')
 # 로그인 페이지 렌더
 def login():
-    # msg = request.args.get("msg")
     return render_template('login.html')
+
+
+
+
+##### 기능 API #####
+@app.route('/main', methods=['GET'])
+# book_list 보여주기
+def booklist():
+    # type에 따라 보여주는 booklist가 다름
+    type_receive = request.args.get('type_give')
+
+    # DB에 저장하지 않고 빈 배열 안에 크롤링 결과값을 넣음
+    booklist = [];
+
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    data = requests.get(
+        f"http://book.interpark.com/display/collectlist.do?_method=BestsellerHourNew201605&bestTp=1&dispNo={type_receive}",
+        headers=headers)
+    soup = BeautifulSoup(data.text, 'html.parser')
+    book = soup.select(
+        '#content > div.rankBestWrapper > div.rankBestContainer > div.rankBestContents > div > div.rankBestContentList > ol > li')
+
+    for b in book:
+        title = b.select_one('div > a > div.itemName > strong').text
+        author = b.select_one('div > a > div.itemMeta > span.author').text
+        img = b.select_one('div > div.cover > div.coverImage > label > a > img')['src']
+        url = b.select_one('div > div.cover > div.coverImage > label > a')['href']
+        # print(title,img,f"http://book.interpark.com{url}")
+
+        doc = {
+            'title': title,
+            'author': author,
+            'img': img,
+            'url': f"http://book.interpark.com{url}",
+        }
+        # print(doc)
+
+        # DB저장이 아닌 arrya에 넣음 append
+        booklist.append(doc)
+    return jsonify({'msg' : '리스트 가져오기성공', 'booklist':booklist})
+
+
+@app.route('/mainBook', methods=['GET'])
+# book_main 보여주기
+def bookmain():
+
+    bookmain = [];
+    best_book = 'https://book.interpark.com/product/BookDisplay.do?_method=detail&sc.shopNo=0000400000&sc.prdNo=355136828&sc.saNo=003003001&bid1=Best_zone&bid2=LiveRanking&bid3=PRD&bid4=001'
+
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    data = requests.get(best_book, headers=headers)
+    soup = BeautifulSoup(data.text, 'html.parser')
+    main_title = soup.select_one('#inc_titWrap > div.prod_title > div > h2').text
+    main_img = soup.select_one('#inc_optionWrap > div.optionLeft_wrap > div.bookBox > div > div > div > img')['src']
+    main_author = soup.select_one(
+        '#inc_optionWrap > div.optionRight_wrap > div.bookInfoBox > ul > li:nth-child(1) > a').text
+    main_text = soup.select_one('#bookInfoWrap > div:nth-child(4) > div > p').text.lstrip()
+
+    doc = {
+        'm_title': main_title,
+        'm_author': main_author,
+        'm_img': main_img,
+        'm_text': main_text,
+        'm_url': best_book,
+    }
+    # print(doc)
+
+    # DB저장이 아닌 arrya에 넣음 append
+    bookmain.append(doc)
+    return jsonify({'msg' : '메인 가져오기성공', 'bookmain':bookmain})
+
 
 
 @app.route('/sign_in', methods=['POST'])
@@ -54,8 +133,8 @@ def sign_in():
     if result is not None:
         payload = {
             'id': username_receive,
-            'exp': datetime.utcnow() + timedelta(seconds=5)  # 로그인 24시간 유지
-            # 'exp': datetime.utcnow() + timedelta(seconds=60 * 60 * 24)  # 로그인 24시간 유지
+            'exp': datetime.utcnow() + timedelta(seconds=60 * 60 * 24)  # 로그인 24시간 유지
+            # 'exp': datetime.utcnow() + timedelta(seconds=5)  # 로그인 5초 test
         }
         # localhost:5000에서는 .decode('utf-8')삭제후 실행, 배포시 .decode('utf-8')를 포함
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
@@ -94,6 +173,7 @@ def sign_up():
     print(doc)
     db.users.insert_one(doc)
     return jsonify({'result': 'success'})
+
 
 
 

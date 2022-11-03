@@ -2,11 +2,77 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <!-- Bootstrap Jquery 등 -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> jquery.min에는 뭔가 안되는게 있다-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/6a99101cff.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body>
-    <h2>{{ user }}님 환영합니다</h2>
-
-
+{# nav #}
+<nav>
+    <div class="contain">
+        <a href="/"><i class="fas fa-book"></i> 오늘-독서</a>
+        <a href="#" class="nav_username">{{user}}님의 서재</a>
+        {#      <a href="{{url_for('saveBook')}}" class="nav_username"></a>#}
+    </div>
+</nav>
+{# 오늘추천 #}
+<section class="today">
+    <div class="contain">
+{#        오늘 추천 메인 #}
+        <div class="today_main">
+{#            <div class="main_recommend">#}
+{#                <p class="main_title">오늘,<br>추천도서</p>#}
+{#                <a href="#">자세히 보기</a>#}
+{#            </div>#}
+{#            <div class="today_img"><img src="../static/img/ex1.jpg"></div>#}
+{#            <div class="book_info">#}
+{#                <p class="name">도서명</p>#}
+{#                <p class="author">저자</p>#}
+{#                <p class="text">줄거리#}
+{#                <p class="text_cont"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit,#}
+{#                    amet consectetur adipisicing elit. Earum assumenda consectetur minima dolor recusandae, possimus#}
+{#                    doloribus quas molestiasLorem ipsum dolor sit, amet consectetur adipisicing elit. Earum assumenda#}
+{#                    consectetur minima dolor recusandae, possimus doloribus quas molestias</p></p>#}
+{#            </div>#}
+        </div>
+{#        오늘 추천 리스트 #}
+        <div class="today_list">
+            <h3 class="today_list_title">오늘의 추천 도서입니다</h3>
+            <div class="today_list_btn">
+                <button onclick="book_list_show('028013')">인문</button>
+                <button onclick="book_list_show('028010')">소설</button>
+                <button onclick="book_list_show('028005')">역사</button>
+            </div>
+            <div class="list_book">
+{#                <div class="list">#}
+{#                    <a href="#" target="_blank">#}
+{#                        <img class="list_img" src="../static/img/ex1.jpg">#}
+{#                        <p class="list_title">도서명도서명도서명도서명</p>#}
+{#                        <p class="list_author"> 작가명작가명</p>#}
+{#                    </a>#}
+{#                    <p class="list_like">좋아요#}
+{#                        <button class="list_likebtn" onclick="like_btn('도서명')">#}
+{#                            0 <i class="fas fa-heart"></i>#}
+{#                        </button>#}
+{#                    </p>#}
+{#                </div>#}
+            </div>
+        </div>
+    </div>
+</section>
+  <script src="../static/js/main.js"></script>
 </body>
 </html>

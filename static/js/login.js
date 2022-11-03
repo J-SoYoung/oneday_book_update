@@ -104,14 +104,16 @@ function sign_in() {
             password_give: password
         },
         success: function (response) {
-            alert(response['result'])
+            console.log(response['result'])
             if (response['result'] == 'success') {
                 // 로그인이 되면, 토큰을 받아와 mytoken(key)으로 쿠키에 저장한다.
                 // 토큰: 검증받은id + 유효시간, 쿠키: 브라우저의 database
                 $.cookie('mytoken', response['token'], {path: '/'});
 
-                // 메인페이지로 이동
+                // 메인페이지로 이동,
                 window.location.replace("/")
+                book_list_save()
+
             } else {
                 alert(response['msg'])
             }
