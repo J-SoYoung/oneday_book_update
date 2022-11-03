@@ -14,6 +14,25 @@ nav .contain {
   display: flex;
   justify-content: space-between;
 }
+.nav_userbar{
+  display: flex;
+  justify-content: flex-end;
+}
+.nav_userbar .nav_username {
+  margin-right: 10px;
+}
+
+button {
+  border: none;
+  border-radius: 7px;
+  outline: none;
+  background-color: white;
+  padding: 2px 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: gray;
+  box-shadow: 1px 1px 2px lightgray;
+}
 
 @media screen and (max-width: 1220px){
   nav .contain { width: 100%; padding: 5px 20px 0  }

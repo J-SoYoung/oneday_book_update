@@ -1,0 +1,19 @@
+footer {
+    font-family: 'GowunDodum-Regular';
+    width: 100%; padding: 30px; box-sizing: border-box; border-top: 1px solid #dee2e6; margin-top: 30px;}
+.footer-box { width: 1200px; margin: 0 auto; }
+.footer-box .footer-minibox { display: flex; justify-content: space-between; align-items: center;}
+.footer-box .footer-minibox .footer-tit { font-size: 20px;}
+.footer-box .footer-minibox .footer-tit i { margin-right: 5px;}
+.footer-box .footer-minibox .footer-icon i { margin-right: 15px; }
+.footer-box .footer-minibox .footer-icon i:last-child { margin-right: 0; }
+.footer-box .footer-content { display: flex; flex-direction: row; justify-content: space-between; align-items: center;}
+.footer-box .footer-content .footer-text { width: 24%; padding: 10px; box-sizing: border-box; border-radius: 10px;}
+.footer-box .footer-content .footer-text p { margin-bottom: 7px; text-align: center; box-sizing: border-box; }
+.footer-box .footer-content .footer-text a { padding: 2px 15px; box-sizing: border-box; border-radius: 5px; width: 100%; text-align: center; display: block; margin: 0 auto;}
+.footer-box .footer-content .footer-text:nth-child(odd) { background-color: #e9ecef;}
+.footer-box .footer-content .footer-text:nth-child(even) { border: solid 2px #e9ecef;}
+.footer-box .footer-content .footer-text:nth-child(odd) a { background-color: white;}
+.footer-box .footer-content .footer-text:nth-child(even) a { background-color: #e9ecef;}
+.footer-box .footer-content .footer-text .name { font-size: 18px; font-weight: 600;  }
+.footer-box .copyright { margin-top: 35px; text-align: center; background-color: #fff3bf; padding: 10px; box-sizing: border-box; }
