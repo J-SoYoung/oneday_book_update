@@ -1,15 +1,17 @@
 @import "reset.css";
 @import "common.css";
 @import "nav.css";
+@import "footer.css";
 
+.contain {
+  width: 1200px;
+  margin: 0 auto;
+}
 
 .today  {
   font-family: 'GowunDodum-Regular';
 }
-
-.today .contain {
-  width: 1200px;
-  margin: 0 auto;
+.today_box{
   padding-top: 50px;
   box-sizing: border-box;
 }
@@ -67,12 +69,9 @@
   font-size: 14px;
   line-height: 20px;
 }
-.today_list_title {
-  font-family: 'SEBANG_Gothic_Bold';
-  font-size: 35px;
-  font-weight: 600;
-  margin: 100px auto 50px;
-  text-align: center;
+.today_list {
+  margin: 50px auto;
+  height: 300px;
 }
 .today_list_btn {
   margin-bottom: 15px;
@@ -147,6 +146,175 @@
   line-height: 25px;
 }
 
+/* 검색기능, 포스트 작성 */
+.search_box{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff3bf;
+}
+.search_box h3, .post_box h3{
+  text-align: center;
+  font-family: 'SEBANG_Gothic_Bold';
+  font-size: 50px;
+  line-height: 65px;
+  text-align: center;
+  margin: 40px 0 20px;
+}
+.search_bar {
+  width: 65%;
+  margin: 0 auto 40px;
+  text-align: center;
+  border: 1px solid gray;
+  border-radius: 5px;
+  background-color: white;
+}
+.search_bar input{
+  margin-right: 5px;
+  width: 500px;
+  height: 40px;
+  padding-left: 15px;
+  border: none;
+}
+.search_bar input:focus{
+  outline: none;
+}
+.search_bar input+i {
+  cursor: pointer;
+}
+
+/* input 검색결과 창 */
+.input_contain{
+  width: 100%;
+  background-color: white;
+  padding: 40px 20px;
+}
+.input_box {
+  width: 85%;
+  height: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 0 auto;
+
+}
+.input_box .input_img{
+  width: 160px;
+  height: 200px;
+  border: 1px solid gray;
+  margin-right: 15px;
+}
+.input_box img {
+  width: 100%;
+  height: 100%;
+}
+.input_box .input_info {
+  width: 80%;
+  box-sizing: border-box;
+  margin-right: 15px;
+}
+.input_box .input_info p {
+  margin-bottom: 18px;
+}
+.input_box .info_score span{
+  font-size: 18px;
+}
+.input_box .info_review{
+  width: 100%;
+  height: 130px;
+  padding: 15px; box-sizing: border-box;
+  line-height: 22px;
+}
+.input_box .input_button{
+  width: 70px;
+  height: 90%;
+  border: 1px solid gray;
+  border-radius: 5px;
+  background-color: #fff3bf;
+}
+
+/* post작성 */
+.review_card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.review_card .card {
+  width: 49%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid gray;
+  color: #495057;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+.review_card .card img{
+  width: 120px;
+  height: 160px;
+  margin-right: 10px;
+}
+.review_card .card .card_cont {
+  width: 100%;
+}
+.review_card .card  p {
+  margin-bottom: 7px;
+  font-weight: 600;
+}
+.review_card .card .card_info{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 10px 0 15px;
+}
+.review_card .card .card_info .card_del{
+  padding: 5px;
+  box-sizing: border-box;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+.review_card .card .review_text{
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+
+
+@media screen and (max-width: 1220px){
+  .save .contain { width: 100% }
+  .review_book .search_bar { width: 80%; }
+  .searchBar_input { width: 90%;}
+}
+@media screen and (max-width: 1050px){
+ .save .contain {
+   flex-direction: column;
+   justify-content: center;
+ }
+  .todo_book {
+    width: 100%; height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+    .todo_book div {
+      width: 48%;
+      height: 300px;
+      border-radius: 10px;
+      box-shadow: 1px 1px 5px #ffd43b ;
+    }
+    .review_book {
+      width: 100%;
+      padding: 0 30px ;
+    }
+
+}
 
 @media screen and (max-width: 1220px){
 .today .contain { width: 100%; }

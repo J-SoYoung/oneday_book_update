@@ -6,17 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
           crossorigin="anonymous">
-    <!-- Bootstrap Jquery 등 -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> jquery.min에는 뭔가 안되는게 있다-->
+    <!-- jQuery library (min, slim은 안되는 부분이 있다) -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <!-- Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
-
+    <!-- Latest compiled and minified Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <!-- jquery cookie-delete import-->
+    <script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <!-- fontawesome icon import-->
     <script src="https://kit.fontawesome.com/6a99101cff.js" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body>
@@ -24,55 +31,173 @@
 <nav>
     <div class="contain">
         <a href="/"><i class="fas fa-book"></i> 오늘-독서</a>
-        <a href="#" class="nav_username">{{user}}님의 서재</a>
-        {#      <a href="{{url_for('saveBook')}}" class="nav_username"></a>#}
+        <div class="nav_userbar">
+            <a href="#" class="nav_username">{{ user }}님의 서재</a>
+            <button onclick="logout()">로그아웃</button>
+        </div>
     </div>
 </nav>
+
 {# 오늘추천 #}
 <section class="today">
-    <div class="contain">
-{#        오늘 추천 메인 #}
+    <div class="contain today_box">
+        {#        오늘 추천 메인 #}
         <div class="today_main">
-{#            <div class="main_recommend">#}
-{#                <p class="main_title">오늘,<br>추천도서</p>#}
-{#                <a href="#">자세히 보기</a>#}
-{#            </div>#}
-{#            <div class="today_img"><img src="../static/img/ex1.jpg"></div>#}
-{#            <div class="book_info">#}
-{#                <p class="name">도서명</p>#}
-{#                <p class="author">저자</p>#}
-{#                <p class="text">줄거리#}
-{#                <p class="text_cont"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit,#}
-{#                    amet consectetur adipisicing elit. Earum assumenda consectetur minima dolor recusandae, possimus#}
-{#                    doloribus quas molestiasLorem ipsum dolor sit, amet consectetur adipisicing elit. Earum assumenda#}
-{#                    consectetur minima dolor recusandae, possimus doloribus quas molestias</p></p>#}
-{#            </div>#}
+            {#            <div class="main_recommend">#}
+            {#                <p class="main_title">오늘,<br>추천도서</p>#}
+            {#                <a href="#">자세히 보기</a>#}
+            {#            </div>#}
+            {#            <div class="today_img"><img src="../static/img/ex1.jpg"></div>#}
+            {#            <div class="book_info">#}
+            {#                <p class="name">도서명</p>#}
+            {#                <p class="author">저자</p>#}
+            {#                <p class="text">줄거리#}
+            {#                <p class="text_cont"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit,#}
+            {#                    amet consectetur adipisicing elit. Earum assumenda consectetur minima dolor recusandae, possimus#}
+            {#                    doloribus quas molestiasLorem ipsum dolor sit, amet consectetur adipisicing elit. Earum assumenda#}
+            {#                    consectetur minima dolor recusandae, possimus doloribus quas molestias</p></p>#}
+            {#            </div>#}
         </div>
-{#        오늘 추천 리스트 #}
+        {#        오늘 추천 리스트 #}
         <div class="today_list">
-            <h3 class="today_list_title">오늘의 추천 도서입니다</h3>
             <div class="today_list_btn">
                 <button onclick="book_list_show('028013')">인문</button>
-                <button onclick="book_list_show('028010')">소설</button>
-                <button onclick="book_list_show('028005')">역사</button>
+                <button onclick="book_list_show('028010')">역사</button>
+                <button onclick="book_list_show('028005')">소설</button>
             </div>
             <div class="list_book">
-{#                <div class="list">#}
-{#                    <a href="#" target="_blank">#}
-{#                        <img class="list_img" src="../static/img/ex1.jpg">#}
-{#                        <p class="list_title">도서명도서명도서명도서명</p>#}
-{#                        <p class="list_author"> 작가명작가명</p>#}
-{#                    </a>#}
-{#                    <p class="list_like">좋아요#}
-{#                        <button class="list_likebtn" onclick="like_btn('도서명')">#}
-{#                            0 <i class="fas fa-heart"></i>#}
-{#                        </button>#}
-{#                    </p>#}
-{#                </div>#}
+                {#                <div class="list">#}
+                {#                    <a href="#" target="_blank">#}
+                {#                        <img class="list_img" src="../static/img/ex1.jpg">#}
+                {#                        <p class="list_title">도서명도서명도서명도서명</p>#}
+                {#                        <p class="list_author"> 작가명작가명</p>#}
+                {#                    </a>#}
+                {#                    <p class="list_like">좋아요#}
+                {#                        <button class="list_likebtn" onclick="like_btn('도서명')">#}
+                {#                            0 <i class="fas fa-heart"></i>#}
+                {#                        </button>#}
+                {#                    </p>#}
+                {#                </div>#}
             </div>
         </div>
     </div>
 </section>
-  <script src="../static/js/main.js"></script>
+
+{# 검색, 포스트 작성기능 #}
+<section class="search">
+    <div class="contain">
+        <div class="post_contain">
+            <div class="search_box">
+                <h3>읽은 책은 메모장에</h3>
+                <div class="search_bar">
+                    <input class="searchBar_input" type="text" placeholder="책 검색하기">
+                    <i class="fas fa-search" onclick="searchBar()"></i>
+                </div>
+                <div class="input_contain">
+                    <div class="input_box">
+                        <div class="input_img">
+                            <img class="input_img_result" src="../static/img/ex1.jpg">
+                        </div>
+                        <div class="input_info">
+                            <p class="info_title">도서명 : <span class="info_title_text"></span></p>
+                            <p class="info_score">평점 <span>☆☆☆☆☆</span></p>
+                            <textarea class="info_review" placeholder="한줄 소감을 적어주세요"></textarea>
+                        </div>
+                        <button class="input_button" onclick="reviewSave()">저장</button>
+                    </div>
+                </div>
+            </div>
+            <div class="post_box">
+                <h3><i class="fa fa-sticky-note-o" aria-hidden="true"></i> MY BOOK NOTE</h3>
+                <div class="review_card">
+                    <div class="card">
+                        <img src="../static/img/ex1.jpg">
+                        <div class="card_cont">
+                            <div class="card_info">
+                                <div class="card_book">
+                                    <p class="title">책제목</p>
+                                    <p class="score">평점</p>
+                                </div>
+                                <button class="card_del" onclick="deleteCard('책제목')">del</button>
+                            </div>
+                            <div class="card_review">
+                                <p class="review_tit">한줄평</p>
+                                <p class="review_text">한줄평 작성하면 오는 곳 한줄평 작성하면 오는 곳 한줄평 작성하면 오는 곳 한줄평 작성하면 오는 곳 한줄평 작성하면
+                                    오는 곳</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="../static/img/ex1.jpg">
+                        <div class="card_cont">
+                            <div class="card_info">
+                                <div class="card_book">
+                                    <p class="title">책제목</p>
+                                    <p class="score">평점</p>
+                                </div>
+                                <button class="card_del" onclick="deleteCard('책제목')">del</button>
+                            </div>
+                            <div class="card_review">
+                                <p class="review_tit">한줄평</p>
+                                <p class="review_text">한줄평 작성하면 오는 곳 한줄평 작성하면 오는 곳 한줄평 작성하면 오는 곳 한줄평 작성하면 오는 곳 한줄평 작성하면
+                                    오는 곳</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="../static/img/ex1.jpg">
+                        <div class="card_cont">
+                            <div class="card_info">
+                                <div class="card_book">
+                                    <p class="title">책제목</p>
+                                    <p class="score">평점</p>
+                                </div>
+                                <button class="card_del" onclick="deleteCard('책제목')">del</button>
+                            </div>
+                            <div class="card_review">
+                                <p class="review_tit">한줄평</p>
+                                <p class="review_text">한줄평 작성하면 오는 곳 한줄평 작성하면 오는 곳 한줄평 작성하면 오는 곳 한줄평 작성하면 오는 곳 한줄평 작성하면
+                                    오는 곳</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</section>
+
+
+<footer>
+    <div class="footer-box">
+<div class="footer-minibox">
+    <p class="footer-tit">햇병아리 개발자도전하다</p>
+    <div class="footer-icon">
+        <i class="fab fa-youtube"></i>
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-facebook-f"></i>
+        <i class="fas fa-comment-dots"></i>
+        <i class="fab fa-amilia"></i>
+    </div>
+</div>
+<p class="footer-person">
+    <button class="btn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">개발자 정보 보기<i class="fas fa-chevron-down"></i>
+    </button>
+</p>
+<div class="collapse" id="collapseExample">
+    <div class="card card-body footer-content">
+        <div class="footer-text">
+            <p class="name">정소영</p>
+            <p class="hobby">frontend - React.js </p>
+            <a class="blog" href="https://thdud4479.tistory.com/" target="_blank">블로그</a>
+        </div>
+    </div>
+</div>
+<p class="copyright">Copyright © 2022 햇병아리 개발공부 <i class="fas fa-dove"></i> All Rights Reserved.</p>
+</div>
+</footer>
+
+<script src="../static/js/main.js"></script>
 </body>
 </html>

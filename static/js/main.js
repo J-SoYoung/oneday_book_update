@@ -3,6 +3,7 @@ $(document).ready(function () {
     book_main_show();
 });
 
+// type에 해당하는 북리스트 보여줌
 function book_list_show(type) {
     let bookType = type
     $('.list_book').empty()
@@ -15,7 +16,7 @@ function book_list_show(type) {
         success: function (response) {
             let list = response['booklist']
             console.log(list)
-            for (let i=0; i<list.length; i++){
+            for (let i=0; i<6; i++){
                 let title = list[i]['title']
                 let img = list[i]['img']
                 let url = list[i]['url']
@@ -35,6 +36,7 @@ function book_list_show(type) {
     })
 }
 
+// 메인 북 보여줌
 function book_main_show() {
     // 크롤링 해서 리스트 보여줌
     $.ajax({
@@ -69,3 +71,8 @@ function book_main_show() {
     })
 }
 
+// logout
+function logout() {
+    $.removeCookie('mytoken', {path: '/'});
+    window.location.replace("/login")
+}
