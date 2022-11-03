@@ -109,13 +109,12 @@ function sign_in() {
                 // 로그인이 되면, 토큰을 받아와 mytoken(key)으로 쿠키에 저장한다.
                 // 토큰: 검증받은id + 유효시간, 쿠키: 브라우저의 database
                 $.cookie('mytoken', response['token'], {path: '/'});
-
                 // 메인페이지로 이동,
                 window.location.replace("/")
-                book_list_save()
-
             } else {
                 alert(response['msg'])
+                username.empty()
+                password.empty()
             }
         }
     });
@@ -137,7 +136,7 @@ function check_dup() {
 
     // is_username = 정규식, 정규식에 만족하지 않는 경우 => class에 is-danger넣어주고, is-safe는 지운다
     if (!is_username(username)) {
-        $("#help-id").text("아이디의 형식을 확인해주세요. 2-10자의 영문과 숫자만 입력 가능합니다.")
+        $("#help-id").text("아이디의 형식을 확인해주세요. 4-10자의 영문과 숫자만 입력 가능합니다.")
             .removeClass("is-safe").addClass("is-danger")
         $("#input-username").focus()
         return;
@@ -166,8 +165,8 @@ function check_dup() {
 
 // ID 정규표현식
 function is_username(asValue) {
-    var regExp = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{2,10}$/;
-    //2-10자의 영문과 숫자와 일부 특수문자(._-)만 입력 가능.
+    var regExp = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{4,10}$/;
+    //4-10자의 영문과 숫자와 일부 특수문자(._-)만 입력 가능.
     return regExp.test(asValue);
 }
 
@@ -234,6 +233,8 @@ function sign_up() {
         },
         success: function (response) {
             alert("회원가입을 축하드립니다!")
+            username.empty()
+            password.empty()
             window.location.replace("/login")
         }
     });

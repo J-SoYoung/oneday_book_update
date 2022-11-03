@@ -56,7 +56,7 @@ def booklist():
     type_receive = request.args.get('type_give')
 
     # DB에 저장하지 않고 빈 배열 안에 크롤링 결과값을 넣음
-    booklist = [];
+    booklist = []
 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
@@ -84,6 +84,7 @@ def booklist():
 
         # DB저장이 아닌 arrya에 넣음 append
         booklist.append(doc)
+
     return jsonify({'msg' : '리스트 가져오기성공', 'booklist':booklist})
 
 
